@@ -7,6 +7,7 @@ The very high level overview is as follows:
     - Wait for any IO and send it as events to top layer.
 """
 
+import os
 import abc
 import asyncio
 import collections
@@ -44,8 +45,8 @@ from mitmproxy.utils.data import pkg_data
 
 logger = logging.getLogger(__name__)
 
-TCP_TIMEOUT = 60 * 10
-UDP_TIMEOUT = 20
+TCP_TIMEOUT = int(os.environ.get("MITMPROXY_TCP_TIMEOUT", "600"))
+UDP_TIMEOUT = int(os.environ.get("MITMPROXY_UDP_TIMEOUT", "20"))
 
 
 class TimeoutWatchdog:
